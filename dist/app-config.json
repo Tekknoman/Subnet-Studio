@@ -4,7 +4,8 @@
     "explore": true,
     "calculate": true,
     "practice": true,
-    "guide": true
+    "guide": true,
+    "designer": true
   },
   "components": {
     "importPlan": true,

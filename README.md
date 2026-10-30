@@ -70,3 +70,19 @@ Edit **`dist/app-config.json`**, separately from the network plan. Set a tab fla
 Each deployed version uses the config committed with that version: a dev config change affects `/dev/` on push and reaches production when merged. Importing/exporting a network plan never changes these deployment settings.
 
 Binary addresses in both the inspector and playground share one renderer: dotted 8-bit octets, two spaced 4-bit groups per octet, and decimal values below. Network/host colouring follows the exact prefix bit even within a group. On narrow screens the binary row scrolls horizontally to preserve readable bits.
+
+## Visual network designer (version 2)
+
+Open **05 Design a network**. Start a new root, copy the current example, or import JSON. Select a block in the tree or address map to inspect its children. Add/edit subnets, split a block into equal halves, and mark growth space as Reserved. Nest containers down to /32. Changing a container does not silently renumber children.
+
+The timeline uses exact horizontal address positions and sizes. Overlapping siblings visibly intersect; hatched areas show the union-complement of child ranges (unassigned space). Zoom in or use the range list for tiny blocks. Out-of-parent spaces remain in the tree/list and generate diagnostics. The tree permits intentionally invalid draft layouts for teaching. Malformed JSON or CIDR syntax is rejected; semantic conflicts prevent validated export, but **Export draft** preserves work for later correction.
+
+Drafts autosave to localStorage per deployment URL, including conflicts. Storage failure is reported; JSON export remains available. Undo/redo retains the last 50 editing actions in the current session. Refresh restores the latest saved draft, not undo history. Browser data clearing/private browsing can remove drafts. New/import/delete operations provide confirmations. Read-only mode disables space editing. Feature flags include `tabs.designer`.
+
+Version 1 imports remain supported by the original explorer. The designer converts v1 to recursive v2: `roots[]` contain nodes with `id`, `name`, `cidr`, `status` (`container`, `active`, `reserved`) and `children[]`. Optional `requiredHosts`, `location`, provenance and other node metadata are retained. Growth envelopes become containers with active and reserved siblings. Institute slots remain reserved. v2 is app-specific and cannot be consumed by older v1-only deployments. Its exports can be imported into this designer, including through the main import button. Original explorer/calculator/practice behavior is preserved.
+
+## Feature branch previews
+
+Every push to `feat/**` republishes a combined artifact containing dev, the latest merged prod release, and **all current feature branches**. Preview URLs are listed at `/Subnet-Studio/features/`. Each branch gets a readable suffix plus a stable hash to prevent slug collisions. Existing previews are preserved on dev/prod deployments; deleted branches disappear after the next publication (branch deletion also triggers publication on the default branch).
+
+Allow `dev`, `prod`, and `feat/*` in the `github-pages` environment. Nested feature names may require a matching additional rule. New feature branches must inherit the updated workflow (branch from updated dev). This is one Pages site: all included branches must pass tests before the combined artifact replaces the live site. A broken preview blocks that publication, leaving the last live artifact intact. All previews are public. Only trusted repository writers should push feature branches, since their test scripts run in Actions.

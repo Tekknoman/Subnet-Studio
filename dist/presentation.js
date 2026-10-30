@@ -8,7 +8,7 @@ export function binaryAddress(value, prefix) {
   });
   return `<div class="binary-address" role="img" aria-label="${octets.join('.')}, binary ${octets.map(n => n.toString(2).padStart(8,'0')).join('.')}; first ${prefix} network bits, last ${32-prefix} host bits"><div class="binary-octets" aria-hidden="true">${groups.join('<span class="octet-dot">.</span>')}</div><div class="sub binary-caption">Decimal value below each 8-bit octet · two 4-bit groups per octet</div></div>`;
 }
-export const TAB_IDS = ['explore', 'calculate', 'practice', 'guide'];
+export const TAB_IDS = ['explore', 'calculate', 'practice', 'guide', 'designer'];
 export function deploymentConfig(raw = {}) {
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) throw Error('App config must be an object.');
   if (raw.version !== undefined && raw.version !== 1) throw Error('Unsupported app config version.');
