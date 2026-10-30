@@ -1,11 +1,12 @@
-name: Deploy dev and production to Pages
+name: Deploy all environments to Pages
 
 on:
   push:
-    branches: [dev]
+    branches: [dev, 'feat/**']
   pull_request:
     branches: [prod]
     types: [closed]
+  delete:
   workflow_dispatch:
 
 # Both URLs belong to a single Pages site. Never publish partial artifacts.
@@ -27,52 +28,31 @@ jobs:
       contents: read
       pull-requests: read
     steps:
-      - name: Resolve development and latest merged production release
-        id: refs
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const { owner, repo } = context.repo;
-            const dev = await github.rest.git.getRef({ owner, repo, ref: 'heads/dev' });
-            core.setOutput('dev', dev.data.object.sha);
-            // Direct prod commits must not become releases, even during a dev deployment.
-            // Resolve merged PRs, not the current prod branch head. Squash and rebase merges work too.
-            const pulls = await github.paginate(github.rest.pulls.list, {
-              owner, repo, state: 'closed', base: 'prod', per_page: 100
-            });
-            const release = pulls.filter(p => p.merged_at && p.merge_commit_sha)
-              .sort((a, b) => Date.parse(b.merged_at) - Date.parse(a.merged_at) || b.number - a.number)[0];
-            core.setOutput('prod', release?.merge_commit_sha || '');
-            core.setOutput('pr', release?.number || '');
-      - name: Check out development
+      - name: Check out publishing tools and all branch history
         uses: actions/checkout@v4
         with:
-          ref: ${{ steps.refs.outputs.dev }}
-          path: development
-          persist-credentials: false
-      - name: Check out released production
-        if: steps.refs.outputs.prod != ''
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ steps.refs.outputs.prod }}
-          path: production
+          fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Test development
-        working-directory: development
-        run: npm test
-      - name: Test production
-        if: steps.refs.outputs.prod != ''
-        working-directory: production
-        run: npm test
-      - name: Assemble both environments
-        env:
-          PROD_SHA: ${{ steps.refs.outputs.prod }}
-          DEV_SHA: ${{ steps.refs.outputs.dev }}
-          PROD_PR: ${{ steps.refs.outputs.pr }}
-        run: node development/scripts/assemble-pages.mjs
+      - name: Resolve latest eligible versions
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const dev = await github.rest.git.getRef({owner, repo, ref:'heads/dev'});
+            const pulls = await github.paginate(github.rest.pulls.list, {owner,repo,state:'closed',base:'prod',per_page:100});
+            const release = pulls.filter(p=>p.merged_at && p.merge_commit_sha)
+              .sort((a,b)=>Date.parse(b.merged_at)-Date.parse(a.merged_at)||b.number-a.number)[0];
+            const branches = await github.paginate(github.rest.repos.listBranches,{owner,repo,per_page:100});
+            const refs = {dev:dev.data.object.sha,prod:release?.merge_commit_sha||'',pr:release?.number||'',
+              features:branches.filter(b=>b.name.startsWith('feat/')).map(b=>({branch:b.name,sha:b.commit.sha}))};
+            require('fs').writeFileSync('refs.json',JSON.stringify(refs));
+      - name: Test and assemble dev, production and every feature preview
+        run: |
+          git fetch origin
+          node scripts/publish-all.mjs
       - name: Upload the complete Pages site
         uses: actions/upload-pages-artifact@v3
         with:
