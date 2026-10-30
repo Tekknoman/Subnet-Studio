@@ -47,3 +47,26 @@ Open http://localhost:8080. Serve over HTTP because the app loads its JSON via f
 - `.github/workflows/pages.yml`: deployment automation
 
 All application asset references are relative, so the same unchanged app works at the root project path and under `/dev/`. Uploads stay in the visitor's tab. See `dist/CONFIG.md` for custom plan format and documented course-solution corrections. This repository does not include the course PDFs or the ChatGPT Sites hosting configuration.
+
+## Deployment components
+
+Edit **`dist/app-config.json`**, separately from the network plan. Set a tab flag to `false` to hide it and skip its initialization:
+
+```json
+{
+  "version": 1,
+  "tabs": {
+    "explore": true,
+    "calculate": true,
+    "practice": false,
+    "guide": true
+  },
+  "components": {"importPlan": true, "exportPlan": true}
+}
+```
+
+`practice` controls **Test your intuition**. All flags currently default to true; the example above demonstrates disabling practice. Omitted flags default to true. If Explore is disabled, the first enabled tab becomes the initial screen; the calculator still uses the loaded plan independently. Import/reset also fall back to an enabled tab. With all tabs disabled, a clear empty-state message appears. Invalid/missing configuration shows a warning and falls back to all components enabled, preserving app availability. These are presentation flags, not access controls.
+
+Each deployed version uses the config committed with that version: a dev config change affects `/dev/` on push and reaches production when merged. Importing/exporting a network plan never changes these deployment settings.
+
+Binary addresses in both the inspector and playground share one renderer: dotted 8-bit octets, two spaced 4-bit groups per octet, and decimal values below. Network/host colouring follows the exact prefix bit even within a group. On narrow screens the binary row scrolls horizontally to preserve readable bits.

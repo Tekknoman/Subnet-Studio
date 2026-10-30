@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "tabs": {
+    "explore": true,
+    "calculate": true,
+    "practice": true,
+    "guide": true
+  },
+  "components": {
+    "importPlan": true,
+    "exportPlan": true
+  }
+}
