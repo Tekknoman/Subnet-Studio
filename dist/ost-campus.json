@@ -1,0 +1,424 @@
+{
+  "$schema": "./network-plan.schema.json",
+  "version": 1,
+  "name": "OST \u00b7 Rapperswil campus",
+  "description": "IPv4 planning \u00b7 CN1 / Exercise 4",
+  "pools": [
+    {
+      "id": "students",
+      "name": "Students & labs",
+      "cidr": "10.16.0.0/17",
+      "color": "#6554c0",
+      "description": "Student and lab allocations share one /17. Active blocks plus their growth reservations exactly fill this pool.",
+      "allocations": [
+        {
+          "id": "s-wifi",
+          "name": "Eduroam \u00b7 students",
+          "cidr": "10.16.0.0/20",
+          "requiredHosts": 4094,
+          "location": "Campus-wide",
+          "status": "active",
+          "growthPrefix": 19
+        },
+        {
+          "id": "s-1",
+          "name": "Building 1 \u00b7 students",
+          "cidr": "10.16.32.0/22",
+          "requiredHosts": 1022,
+          "location": "Building 1",
+          "status": "active",
+          "growthPrefix": 21
+        },
+        {
+          "id": "s-2",
+          "name": "Building 2 \u00b7 students",
+          "cidr": "10.16.40.0/22",
+          "requiredHosts": 1022,
+          "location": "Building 2",
+          "status": "active",
+          "growthPrefix": 21
+        },
+        {
+          "id": "s-3",
+          "name": "Building 3 \u00b7 students",
+          "cidr": "10.16.48.0/22",
+          "requiredHosts": 1022,
+          "location": "Building 3",
+          "status": "active",
+          "growthPrefix": 21
+        },
+        {
+          "id": "s-5",
+          "name": "Building 5 \u00b7 students",
+          "cidr": "10.16.56.0/22",
+          "requiredHosts": 1022,
+          "location": "Building 5",
+          "status": "active",
+          "growthPrefix": 21
+        },
+        {
+          "id": "s-6",
+          "name": "Building 6 \u00b7 students",
+          "cidr": "10.16.64.0/22",
+          "requiredHosts": 1022,
+          "location": "Building 6",
+          "status": "active",
+          "growthPrefix": 21
+        },
+        {
+          "id": "lab-1",
+          "name": "Building 1 \u00b7 lab",
+          "cidr": "10.16.72.0/22",
+          "requiredHosts": 1022,
+          "location": "Building 1",
+          "status": "active",
+          "growthPrefix": 21
+        },
+        {
+          "id": "lab-2",
+          "name": "Building 2 \u00b7 lab",
+          "cidr": "10.16.80.0/22",
+          "requiredHosts": 1022,
+          "location": "Building 2",
+          "status": "active",
+          "growthPrefix": 21
+        },
+        {
+          "id": "lab-3",
+          "name": "Building 3 \u00b7 lab",
+          "cidr": "10.16.88.0/22",
+          "requiredHosts": 1022,
+          "location": "Building 3",
+          "status": "active",
+          "growthPrefix": 21
+        },
+        {
+          "id": "lab-4",
+          "name": "Building 4 \u00b7 lab",
+          "cidr": "10.16.96.0/22",
+          "requiredHosts": 1022,
+          "location": "Building 4",
+          "status": "active",
+          "growthPrefix": 21
+        },
+        {
+          "id": "lab-5",
+          "name": "Building 5 \u00b7 lab",
+          "cidr": "10.16.104.0/22",
+          "requiredHosts": 1022,
+          "location": "Building 5",
+          "status": "active",
+          "growthPrefix": 21
+        },
+        {
+          "id": "lab-6",
+          "name": "Building 6 \u00b7 lab",
+          "cidr": "10.16.112.0/22",
+          "requiredHosts": 1022,
+          "location": "Building 6",
+          "status": "active",
+          "growthPrefix": 21
+        },
+        {
+          "id": "s-4",
+          "name": "Building 4 \u00b7 students",
+          "cidr": "10.16.120.0/23",
+          "requiredHosts": 510,
+          "location": "Building 4",
+          "status": "active",
+          "growthPrefix": 22
+        },
+        {
+          "id": "s-8",
+          "name": "Building 8 \u00b7 students",
+          "cidr": "10.16.124.0/23",
+          "requiredHosts": 510,
+          "location": "Building 8",
+          "status": "active",
+          "growthPrefix": 22
+        }
+      ]
+    },
+    {
+      "id": "employees",
+      "name": "Employees & internal servers",
+      "cidr": "10.18.0.0/17",
+      "color": "#168878",
+      "description": "Keep internal services separate from student networks. Space after the named growth blocks remains unallocated.",
+      "allocations": [
+        {
+          "id": "e-wifi",
+          "name": "Eduroam \u00b7 employees",
+          "cidr": "10.18.0.0/21",
+          "requiredHosts": 2046,
+          "location": "Campus-wide",
+          "status": "active",
+          "growthPrefix": 20
+        },
+        {
+          "id": "e-1",
+          "name": "Building 1 \u00b7 employees",
+          "cidr": "10.18.16.0/22",
+          "requiredHosts": 1022,
+          "location": "Building 1",
+          "status": "active",
+          "growthPrefix": 21
+        },
+        {
+          "id": "e-4",
+          "name": "Building 4 \u00b7 employees",
+          "cidr": "10.18.24.0/22",
+          "requiredHosts": 1022,
+          "location": "Building 4",
+          "status": "active",
+          "growthPrefix": 21
+        },
+        {
+          "id": "e-5",
+          "name": "Building 5 \u00b7 employees",
+          "cidr": "10.18.32.0/22",
+          "requiredHosts": 1022,
+          "location": "Building 5",
+          "status": "active",
+          "growthPrefix": 21
+        },
+        {
+          "id": "e-6",
+          "name": "Building 6 \u00b7 employees",
+          "cidr": "10.18.40.0/22",
+          "requiredHosts": 1022,
+          "location": "Building 6",
+          "status": "active",
+          "growthPrefix": 21
+        },
+        {
+          "id": "e-2",
+          "name": "Building 2 \u00b7 employees",
+          "cidr": "10.18.48.0/23",
+          "requiredHosts": 510,
+          "location": "Building 2",
+          "status": "active",
+          "growthPrefix": 22
+        },
+        {
+          "id": "e-3",
+          "name": "Building 3 \u00b7 employees",
+          "cidr": "10.18.52.0/23",
+          "requiredHosts": 510,
+          "location": "Building 3",
+          "status": "active",
+          "growthPrefix": 22
+        },
+        {
+          "id": "srv-2",
+          "name": "Building 2 \u00b7 internal servers",
+          "cidr": "10.18.56.0/23",
+          "requiredHosts": 510,
+          "location": "Building 2",
+          "status": "active",
+          "growthPrefix": 22
+        },
+        {
+          "id": "srv-5",
+          "name": "Building 5 \u00b7 internal servers",
+          "cidr": "10.18.60.0/23",
+          "requiredHosts": 510,
+          "location": "Building 5",
+          "status": "active",
+          "growthPrefix": 22
+        },
+        {
+          "id": "srv-8",
+          "name": "Building 8 \u00b7 internal servers",
+          "cidr": "10.18.64.0/23",
+          "requiredHosts": 510,
+          "location": "Building 8",
+          "status": "active",
+          "growthPrefix": 22
+        }
+      ]
+    },
+    {
+      "id": "institutes",
+      "name": "Institutes",
+      "cidr": "10.20.0.0/16",
+      "color": "#d08a25",
+      "description": "Sixteen equal /20 allocations. Five institutes are assigned; eleven slots are held for future institutes. Institutes may subdivide their blocks.",
+      "allocations": [
+        {
+          "id": "i-1",
+          "name": "Institute 1",
+          "cidr": "10.20.0.0/20",
+          "requiredHosts": 0,
+          "location": "Building 8",
+          "status": "active"
+        },
+        {
+          "id": "i-2",
+          "name": "Institute 2",
+          "cidr": "10.20.16.0/20",
+          "requiredHosts": 0,
+          "location": "Building 8",
+          "status": "active"
+        },
+        {
+          "id": "i-3",
+          "name": "Institute 3",
+          "cidr": "10.20.32.0/20",
+          "requiredHosts": 0,
+          "location": "Building 8",
+          "status": "active"
+        },
+        {
+          "id": "i-4",
+          "name": "Institute 4",
+          "cidr": "10.20.48.0/20",
+          "requiredHosts": 0,
+          "location": "Building 8",
+          "status": "active"
+        },
+        {
+          "id": "i-5",
+          "name": "Institute 5",
+          "cidr": "10.20.64.0/20",
+          "requiredHosts": 0,
+          "location": "Building 8",
+          "status": "active"
+        },
+        {
+          "id": "i-6",
+          "name": "Institute 6",
+          "cidr": "10.20.80.0/20",
+          "requiredHosts": 0,
+          "location": "Future institute",
+          "status": "reserved"
+        },
+        {
+          "id": "i-7",
+          "name": "Institute 7",
+          "cidr": "10.20.96.0/20",
+          "requiredHosts": 0,
+          "location": "Future institute",
+          "status": "reserved"
+        },
+        {
+          "id": "i-8",
+          "name": "Institute 8",
+          "cidr": "10.20.112.0/20",
+          "requiredHosts": 0,
+          "location": "Future institute",
+          "status": "reserved"
+        },
+        {
+          "id": "i-9",
+          "name": "Institute 9",
+          "cidr": "10.20.128.0/20",
+          "requiredHosts": 0,
+          "location": "Future institute",
+          "status": "reserved"
+        },
+        {
+          "id": "i-10",
+          "name": "Institute 10",
+          "cidr": "10.20.144.0/20",
+          "requiredHosts": 0,
+          "location": "Future institute",
+          "status": "reserved"
+        },
+        {
+          "id": "i-11",
+          "name": "Institute 11",
+          "cidr": "10.20.160.0/20",
+          "requiredHosts": 0,
+          "location": "Future institute",
+          "status": "reserved"
+        },
+        {
+          "id": "i-12",
+          "name": "Institute 12",
+          "cidr": "10.20.176.0/20",
+          "requiredHosts": 0,
+          "location": "Future institute",
+          "status": "reserved"
+        },
+        {
+          "id": "i-13",
+          "name": "Institute 13",
+          "cidr": "10.20.192.0/20",
+          "requiredHosts": 0,
+          "location": "Future institute",
+          "status": "reserved"
+        },
+        {
+          "id": "i-14",
+          "name": "Institute 14",
+          "cidr": "10.20.208.0/20",
+          "requiredHosts": 0,
+          "location": "Future institute",
+          "status": "reserved"
+        },
+        {
+          "id": "i-15",
+          "name": "Institute 15",
+          "cidr": "10.20.224.0/20",
+          "requiredHosts": 0,
+          "location": "Future institute",
+          "status": "reserved"
+        },
+        {
+          "id": "i-16",
+          "name": "Institute 16",
+          "cidr": "10.20.240.0/20",
+          "requiredHosts": 0,
+          "location": "Future institute",
+          "status": "reserved"
+        }
+      ]
+    },
+    {
+      "id": "public",
+      "name": "Public DMZ",
+      "cidr": "152.96.0.0/23",
+      "color": "#cf5970",
+      "description": "A separate public pool, outside the private campus /13. Allocate the larger DMZ first, preserving aligned growth space.",
+      "allocations": [
+        {
+          "id": "dmz-8",
+          "name": "Building 8 \u00b7 DMZ",
+          "cidr": "152.96.0.0/25",
+          "requiredHosts": 110,
+          "location": "Building 8",
+          "status": "active",
+          "growthPrefix": 24
+        },
+        {
+          "id": "dmz-5",
+          "name": "Building 5 \u00b7 DMZ",
+          "cidr": "152.96.1.0/27",
+          "requiredHosts": 30,
+          "location": "Building 5",
+          "status": "active",
+          "growthPrefix": 26
+        }
+      ]
+    }
+  ],
+  "campus": {
+    "name": "Rapperswil",
+    "cidr": "10.16.0.0/13",
+    "poolIds": [
+      "students",
+      "employees",
+      "institutes"
+    ]
+  },
+  "sourceNotes": [
+    "Source: Network Layer Part 1 Exercise Session, Solution Proposals v1.2.1, printed pp. 24\u201335.",
+    "DMZ correction: pp. 34\u201335 swap building assignments. Requirements p. 25 and solution 4.7 p. 29 agree: Building 8 gets /25 (110 hosts); Building 5 gets /27 (30 hosts).",
+    "Arithmetic correction: Building 5 internal server /23 supports 510 usable addresses, not 520 (p. 34). The DMZ demand total is 140, not 252 (p. 25); 252 is not the usable total of /25 + /27 either.",
+    "Prefix correction: Building 3 student growth is 10.16.48.0/21, not 10.16.18.0/21 (p. 31). Abbreviated Lab 5 and 6 growth addresses are expanded to valid dotted-quad CIDR.",
+    "Interpretation: the fractions in 4.8 refer to full planning envelopes including growth. The lab envelope is /21; the initially configured subnet is /22 (4.9\u20134.10).",
+    "Draw.io correction: Building 1 student growth is 10.16.32.0/21. The illustration\u2019s 10.18.0.0/21 is outside the student pool. Missing building and lab blocks are restored from the PDF.",
+    "Institute /20 blocks are allocations that may be subdivided, not necessarily single broadcast domains. The PDF does not specify institute host requirements."
+  ]
+}

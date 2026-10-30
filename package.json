@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "scripts": {
+    "test": "node test.mjs && node scripts/test-pages.mjs"
+  }
+}
